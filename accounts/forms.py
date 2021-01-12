@@ -10,6 +10,7 @@ class LoginForm(forms.ModelForm):
         model = User
         fields = ['username', 'password']
 
+
 class SignupForm(UserCreationForm):
     username = forms.CharField(label='사용자명', widget=forms.TextInput(attrs={
         'pattern': '[a-zA-Z0-9]+',
@@ -25,7 +26,7 @@ class SignupForm(UserCreationForm):
     def clean_nickname(self):
         nickname = self.cleaned_data.get('nickname')
         if Profile.objects.filter(nickname=nickname).exists():
-            raise forms.ValidationsError('이미 존재하는 닉네임 입니다')
+            raise forms.ValidationError('이미 존재하는 닉네임 입니다')
         return nickname
 
     def clean_email(self):
@@ -49,12 +50,6 @@ class SignupForm(UserCreationForm):
             picture=self.cleaned_data['picture'],
         )
         return user
-
-
-
-
-
-
 
 
 

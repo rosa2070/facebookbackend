@@ -16,7 +16,7 @@ def signup(request):
         form = SignupForm()
 
     return render(request, 'accounts/signup.html', {
-        'form':form,
+        'form': form,
     })
 
 
@@ -26,7 +26,7 @@ def login_check(request):
         name = request.POST.get('username')
         pwd = request.POST.get('password')
 
-        user = authenticate(user_name=name, password=pwd)
+        user = authenticate(username=name, password=pwd)
 
         if user is not None:
             login(request, user)
@@ -38,6 +38,8 @@ def login_check(request):
         'form': form
     })
 
+
 def logout(request):
     django_logout(request)
     return redirect("/")
+
